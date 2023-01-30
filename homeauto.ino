@@ -122,7 +122,6 @@ void checkButton() {
             }
         }
     } else {
-        digitalWrite(7, LOW);
         buttonPressed = false;
     }
 }
