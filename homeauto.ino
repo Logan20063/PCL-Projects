@@ -13,11 +13,9 @@ bool buttonPressed = false;
 
 void setup() {
     Particle.function("setFeedingTime", setFeedingTime);
-    Particle.function("snippet", snippet);
     strip.begin();
     strip.show();
     pinMode(button, INPUT_PULLDOWN);
-    pinMode(7, OUTPUT);
     pinMode(6, INPUT_PULLDOWN);
     Time.zone(-6);
 }
@@ -31,9 +29,6 @@ void loop() {
     if(feedingTime) {
         lightShow();
     }
-    // if(digitalRead(6) == HIGH) {
-    //     setFeedingTime("");
-    // }
 }
 
 void lightShow() {
@@ -135,18 +130,10 @@ void checkButton() {
                 if(preset >= 5) {
                     preset = 1;
                 }
-                delay(100);
-                // strip.setPixelColor(preset - 1, 255, 0, 0);
-                // delay(250);
             }
         }
     } else {
         digitalWrite(7, LOW);
         buttonPressed = false;
     }
-}
-
-int snippet(String param) {
-    lightShow();
-    return 0;
 }
