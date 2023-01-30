@@ -10,18 +10,17 @@ int button = 3;
 int preset = 1;
 bool feedingTime = false;
 bool buttonPressed = false;
+int wait = 50;
 
 void setup() {
-    Particle.function("setFeedingTime", setFeedingTime);
     strip.begin();
     strip.show();
     pinMode(button, INPUT_PULLDOWN);
-    pinMode(6, INPUT_PULLDOWN);
     Time.zone(-6);
 }
 
 void loop() {
-    if(Time.hour() == 19 && Time.minute() == 45 && Time.second() == 0) {
+    if(Time.hour() == 17 && Time.minute() == 00 && Time.second() == 0) {
         feedingTime = true;
         Particle.publish("Lights_red");
     }
@@ -37,7 +36,7 @@ void lightShow() {
             strip.clear();
             strip.setPixelColor(i, 255, 0, 0);
             strip.show();
-            delay(50);
+            delay(wait);
             checkButton();
             if(!feedingTime) {
                 return;
@@ -52,7 +51,7 @@ void lightShow() {
            strip.clear();
            strip.setPixelColor(i, num1, num2, num3);
            strip.show();
-           delay(50);
+           delay(wait);
            checkButton();
            if(!feedingTime) {
                return;
@@ -65,7 +64,7 @@ void lightShow() {
             strip.setPixelColor(i, 255, 0, 0);
             strip.setPixelColor(strip.numPixels() - i - 1, 255, 0, 0);
             strip.show();
-            delay(50);
+            delay(wait);
             checkButton();
             if(!feedingTime) {
                 return;
@@ -79,7 +78,7 @@ void lightShow() {
         for(int i=0; i < strip.numPixels(); i++) {
             strip.setPixelColor(i, 255, 0, 0);
             strip.show();
-            delay(50);
+            delay(wait);
             checkButton();
             if(!feedingTime) {
                 return;
@@ -88,7 +87,7 @@ void lightShow() {
         for(int i=0; i < strip.numPixels(); i++) {
             strip.setPixelColor(i, 0, 255, 0);
             strip.show();
-            delay(50);
+            delay(wait);
             checkButton();
             if(!feedingTime) {
                 return;
@@ -97,7 +96,7 @@ void lightShow() {
         for(int i=0; i < strip.numPixels(); i++) {
             strip.setPixelColor(i, 0, 0, 255);
             strip.show();
-            delay(50);
+            delay(wait);
             checkButton();
             if(!feedingTime) {
                 return;
@@ -106,18 +105,8 @@ void lightShow() {
     }
 }
 
-int setFeedingTime(String param) {
-    feedingTime = true;
-    if(feedingTime) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
 void checkButton() {
     if(digitalRead(3) == HIGH) {
-        digitalWrite(7, HIGH);
         if(!buttonPressed) {
             buttonPressed = true;
             if(feedingTime) {
