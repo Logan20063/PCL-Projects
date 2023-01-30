@@ -22,7 +22,7 @@ void setup() {
 void loop() {
     if(Time.hour() == 17 && Time.minute() == 00 && Time.second() == 0) {
         feedingTime = true;
-        Particle.publish("Lights_red");
+        Particle.publish();
     }
     checkButton();
     if(feedingTime) {
@@ -111,7 +111,7 @@ void checkButton() {
             buttonPressed = true;
             if(feedingTime) {
                 feedingTime = false;
-                Particle.publish("Light_off");
+                Particle.publish();
             strip.clear();
             strip.show();
             } else {
