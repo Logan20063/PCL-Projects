@@ -110,8 +110,7 @@ void checkButton() {
         if(!buttonPressed) {
             buttonPressed = true;
             if(feedingTime) {
-                feedingTime = false;
-                Particle.publish();
+                alerted();
             strip.clear();
             strip.show();
             } else {
@@ -124,4 +123,9 @@ void checkButton() {
     } else {
         buttonPressed = false;
     }
+}
+
+void alerted() {
+    Particle.publish();
+    feedingTime = false;
 }
